@@ -43,15 +43,14 @@ func getDistanceBetweenLists(leftNumbers, rightNumbers []int) int {
 func getSimilarityScore(leftNumbers, rightNumbers []int) int {
 	similarity := 0
 
-	for _, num := range leftNumbers {
-		count := 0
-		for _, right := range rightNumbers {
-			if right == num {
-				count++
-			}
-		}
+	counts := map[int]int{}
 
-		similarity += num * count
+	for _, right := range rightNumbers {
+		counts[right]++
+	}
+
+	for _, num := range leftNumbers {
+		similarity += num * counts[num]
 	}
 
 	return similarity
